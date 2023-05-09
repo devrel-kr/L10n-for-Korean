@@ -1,0 +1,31 @@
+from hanspell import spell_checker
+path='/Users/hee/Documents/korea_movie/L10n-for-Korean'
+filename='The.Red.Baron'
+f=open(path+'/'+filename+'.txt','r',encoding='utf8')
+txt=f.readlines()
+f.close()
+new_txt=[]
+for i in txt:
+    new_txt.append(i.replace(',',""))
+    str_txt=""
+for i in new_txt:
+    str_txt=str_txt+i+""
+cnt=0
+for i in range(0,50):
+    globals()['sent{}'.format(i)]=str_txt[500*i:500*i+499]
+    spelled_sent=spell_checker.check(globals()['sent{}'.format(i)])
+    print(spelled_sent)
+    cnt+=spelled_sent[3]
+    print(spelled_sent[3])
+    print(cnt)
+    checked_sent=spelled_sent.checked
+
+    f=open(filename+'2.txt','a+',encoding='utf8')
+    f.write(checked_sent)
+    f.close()
+print('총 error 갯수는')
+print(cnt)
+#result = spell_checker.check(text)
+#print(type(result))
+#dict_result = spelled_sent.as_dict()
+#print(dict_result)
